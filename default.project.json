@@ -1,0 +1,25 @@
+{
+  "name": "pillow_fight",
+  "tree": {
+    "$className": "DataModel",
+
+    "ServerScriptService": {
+      "$path": "src/server"
+    },
+
+    "ReplicatedStorage": {
+      "Configs": {
+        "$path": "src/configs"
+      },
+      "Shared": {
+        "$path": "src/shared"
+      }
+    },
+
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "$path": "src/client"
+      }
+    }
+  }
+}
