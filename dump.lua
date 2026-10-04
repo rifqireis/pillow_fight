@@ -18,21 +18,34 @@ local function exportTree(instance, targetPath)
     end
 end
 
--- Ekstrak ServerScriptService ke src/server
-print("Mengekstrak ServerScriptService...")
-exportTree(place.ServerScriptService, "src/server")
+-- Ekstrak ServerScriptService
+print("Mengekstrak ServerScriptService -> src/ServerScriptService...")
+exportTree(place.ServerScriptService, "src/ServerScriptService")
 
--- Ekstrak ReplicatedStorage.Configs ke src/configs
+-- Ekstrak ReplicatedStorage
 local repStorage = place.ReplicatedStorage
 if repStorage:FindFirstChild("Configs") then
-    print("Mengekstrak ReplicatedStorage/Configs...")
-    exportTree(repStorage.Configs, "src/configs")
+    print("Mengekstrak ReplicatedStorage/Configs -> src/ReplicatedStorage/Configs...")
+    exportTree(repStorage.Configs, "src/ReplicatedStorage/Configs")
 end
 
--- Ekstrak ReplicatedStorage.Shared ke src/shared
 if repStorage:FindFirstChild("Shared") then
-    print("Mengekstrak ReplicatedStorage/Shared...")
-    exportTree(repStorage.Shared, "src/shared")
+    print("Mengekstrak ReplicatedStorage/Shared -> src/ReplicatedStorage/Shared...")
+    exportTree(repStorage.Shared, "src/ReplicatedStorage/Shared")
 end
 
-print("Ekstraksi selesai! Semua script aman di lokal.")
+-- Ekstrak StarterPlayerScripts
+local starterPlayer = place:FindFirstChild("StarterPlayer")
+if starterPlayer and starterPlayer:FindFirstChild("StarterPlayerScripts") then
+    print("Mengekstrak StarterPlayerScripts -> src/StarterPlayer/StarterPlayerScripts...")
+    exportTree(starterPlayer.StarterPlayerScripts, "src/StarterPlayer/StarterPlayerScripts")
+end
+
+-- Ekstrak ReplicatedFirst
+local repFirst = place:FindFirstChild("ReplicatedFirst")
+if repFirst then
+    print("Mengekstrak ReplicatedFirst -> src/ReplicatedFirst...")
+    exportTree(repFirst, "src/ReplicatedFirst")
+end
+
+print("Ekstraksi selesai! Struktur 1:1 dengan Roblox Studio.")

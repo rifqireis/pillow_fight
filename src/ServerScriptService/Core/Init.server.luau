@@ -3,7 +3,8 @@ local Players = game:GetService("Players")
 local ServerScriptService = game:GetService("ServerScriptService")
 
 -- REQUIRE SERVICES
-local Services = ServerScriptService.Core.Service
+local Core = ServerScriptService:FindFirstChild("Core", true) or ServerScriptService:WaitForChild("Core")
+local Services = Core.Service
 local ArenaService       = require(Services.ArenaService)
 local BalanceService     = require(Services.BalanceService)
 local EnergyService      = require(Services.EnergyService)
@@ -11,11 +12,12 @@ local LeaderboardService = require(Services.LeaderboardService)
 local PlayerDataService  = require(Services.PlayerDataService) -- DITAMBAHKAN
 local PunishmentService  = require(Services.PunishmentService) -- Anti-GB Layer 2: suspicionCount & ban persisten
 local StreakDisplayService = require(Services.StreakDisplayService) -- DITAMBAHKAN: badge win streak gak pernah ke-init
+local PartService        = require(Services.PartService)
 
-local PlayerStateRepository = require(ServerScriptService.Core.Repository.PlayerStateRepository)
+local PlayerStateRepository = require(Core.Repository.PlayerStateRepository)
 
 -- REQUIRE CONTROLLERS
-local Controllers = ServerScriptService.Core.Controller
+local Controllers = Core.Controller
 local CombatController = require(Controllers.CombatController)
 local MatchController   = require(Controllers.MatchController) -- DITAMBAHKAN BALIK, INI YANG BIKIN PAD TELEPORTER MATI
 
@@ -24,6 +26,7 @@ if ArenaService.init then ArenaService.init() end
 if BalanceService.startPassiveDecay then BalanceService.startPassiveDecay() end
 if EnergyService.startPassiveRegen then EnergyService.startPassiveRegen() end
 if StreakDisplayService.init then StreakDisplayService.init() end -- WAJIB: tanpa ini, badge gak pernah dipasang ulang pas character respawn, dan updateStreak() pas player baru join (sebelum character spawn) gak ada yang nge-reapply dari cache
+if PartService.init then PartService.init() end
 
 -- INIT CONTROLLERS
 if CombatController.init then CombatController.init() end

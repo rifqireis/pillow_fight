@@ -10,7 +10,6 @@
     Tanggal    : 4 Juli 2026
     Versi      : 2.1
 ]]
-
 local CombatController = {}
 
 -- Services & Repositories
